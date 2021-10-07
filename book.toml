@@ -4,6 +4,7 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Blue Engine"
+description = "The official documentation of the Blue Engine"
 
 [build]
 build-dir = "docs"

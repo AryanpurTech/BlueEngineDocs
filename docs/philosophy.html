@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Introduction - Blue Engine</title>
+        <title>Philosophy, structure, and technologies - Blue Engine</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="The official documentation of the Blue Engine">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="philosophy.html"><strong aria-hidden="true">2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="hello_world.html"><strong aria-hidden="true">4.</strong> Hello World</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="philosophy.html" class="active"><strong aria-hidden="true">2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="hello_world.html"><strong aria-hidden="true">4.</strong> Hello World</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,20 +134,35 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>Here lives the guide for the <a href="https://github.com/ElhamAryanpur/BlueEngine">Blue Engine</a>, including examples, tips, tricks, philosophy, and more.</p>
-<p>The early idea was to use this as the first layer for all future projects of myself, but later was decided that it should be made for general use. Now the engine can be used for games, GUIs, or even as a render backend.</p>
-<p>Although the engine is quite young in terms of development, the main focus is stability, flexibility, ease of use, and portability. The engine is actively used in projects such as <a href="https://github.com/Gigantesque">Gigantesque</a>, and my own personal projects as well!</p>
-<p>We do have a small community as of yet, mainly on <a href="https://discord.gg/s7xsj9q">discord</a>. So join us if you haven't yet!.</p>
-<hr />
-<p>The engine is licensed under Apache-2.0 license and includes all the files in this repository, unless stated otherwise.</p>
-<p>Edit this guide on the <a href="https://github.com/ElhamAryanpur/BlueEngineDocs">Blue Engine Doc</a> repository.</p>
+                        <h1 id="philosophy-structure-and-technologies"><a class="header" href="#philosophy-structure-and-technologies">Philosophy, structure, and technologies</a></h1>
+<h2 id="philosophy"><a class="header" href="#philosophy">Philosophy</a></h2>
+<p>The philosophy is always to bring as much ease of use and flexibility as possible. Anything done with the engine, the changes made, the features added, e.t.c. are all made to be as easy-to-use and as flexible as possible for everyone to have a peace of mind when using. Doing graphics shouldn't be hard even at such low level right?</p>
+<p>For most people, use cases differ. And because of that, the level of abstraction should differ too; the engine must be flexible enough to accommodate that. This is how Blue Engine can be as high or low level when using as you need. Just need objects to be displayed? Sure thing, they're just one line away! Want to have custom built structure for your own shape and bring your custom engines upon it with custom shaders, textures, and more? We got you covered too! There's something for everyone!</p>
+<h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
+<p>The source code is structured to have a common place for every part of the engine. I took a bit of idea from structures of C/C++ projects for organizing the source code. And came up with a similar organizational structure.</p>
+<ul>
+<li>
+<p>all the <code>structs</code>, <code>types</code>, <code>enums</code>, e.t.c. are all under <code>header.rs</code> file. This file also specify if a part will be public for other crate use or not as well as global default data, such as default texture, default shader, and more.</p>
+</li>
+<li>
+<p>Methods' code and implementation live under their designated file. The target classes will be taken from the definitions file.</p>
+</li>
+<li>
+<p>Methods' code and other parts like camera, window, render, e.t.c. will each have their own files for custom and clean progress and to not interfere with each-other.</p>
+</li>
+</ul>
+<h2 id="technologies-used"><a class="header" href="#technologies-used">Technologies used</a></h2>
+<p>I try to use standard library as much as possible, but some parts are too much to write, or not possible within the bounds of standard library such as windowing, rendering APIs, e.t.c. For these, I use crates that already provide those. Even if a need for an external crate rises, I try as much as possible to ensure cross-platform portability, ease of use, and keep it as lightweight as possible, and to not be a roadblock for development and use.</p>
+<p>The technologies used as of now, can be viewed on the <code>cargo.toml</code> file in the root directory under <code>dependencies</code> section.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="next" href="philosophy.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="prev" href="introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="setup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -156,7 +171,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="next" href="philosophy.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="prev" href="introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="setup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

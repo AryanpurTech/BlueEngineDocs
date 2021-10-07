@@ -3,10 +3,10 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Chapter 1 - Blue Engine</title>
+        <title>Installation and first look - Blue Engine</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="">
+        <meta name="description" content="The official documentation of the Blue Engine">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="philosophy.html"><strong aria-hidden="true">2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="setup.html" class="active"><strong aria-hidden="true">3.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="hello_world.html"><strong aria-hidden="true">4.</strong> Hello World</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,18 +134,43 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+                        <h1 id="setup"><a class="header" href="#setup">Setup</a></h1>
+<p>To start, we need to setup the framework first. This guide expects you to know basics of Rust. If not, start <a href="https://rust-lang.org">here</a></p>
+<p>Fortunately, the installation is very simple; thanks to rust's ecosystem. Because we're using Rust, make sure you have it <a href="https://www.rust-lang.org/tools/install">installed</a> and working properly along <code>cargo</code>.</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>If you'd like to try testing the engine before starting to work with it, you'd need to download/clone the repository.</p>
+<pre><code class="language-bash">git clone https://github.com/ElhamAryanpur/BlueEngine
+
+cd BlueEngine 
+</code></pre>
+<p>After that, you can try running examples that are currently provided. For example, let's try running Triangle example that shows a white-ish triangle on your screen:</p>
+<pre><code class="language-bash">cargo run --example triangle
+</code></pre>
+<p>Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to <a href="https://github.com/ElhamAryanpur/BlueEngine/issues">open a new issue</a> and I'll look into it.</p>
+<p>The <a href="https://github.com/ElhamAryanpur/BlueEngine/tree/master/examples">examples</a> folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="philosophy.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="hello_world.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="philosophy.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="hello_world.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
