@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -222,6 +222,7 @@ fn main(){
 </code></pre>
 <p>You should now see an empty window! Congratulations you just created your first window using Blue Engine!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="engine-introduction"><a class="header" href="#engine-introduction">Engine introduction</a></h1>
+<h2 id="engine"><a class="header" href="#engine">Engine</a></h2>
 <p><code>Engine</code> is the starting point for using the BE (Blue Engine). It acts like a tree, with each branch being a functionality. This is an opinionated approach and not often liked by all of Rust's community as it brings up some issues for the borrow checker. However it is much more mature than early testings and it appears to be working for our case, so unless highly requested or a major issue appears it will remain in such way.</p>
 <p>The <code>Engine</code> is a <code>struct</code> type, and contains:</p>
 <ul>
@@ -250,6 +251,48 @@ fn main() {
 <tr><td>resizable</td><td>true</td></tr>
 </tbody></table>
 <p>You can also alter only few and leave the rest as default.</p>
+<p>After you initialized the engine, you can start the update loop. The update loop runs code per frame, and also provides events and updates.</p>
+<blockquote>
+<p>note that the events are updated BEFORE each frame! So any changes you make in this frame, will be updated on the next frame.</p>
+</blockquote>
+<h2 id="update-loop"><a class="header" href="#update-loop">Update loop</a></h2>
+<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that provides these:</p>
+<ul>
+<li><code>&amp;mut Renderer</code></li>
+<li><code>&amp;Window</code></li>
+<li><code>&amp;mut Vec&lt;Object&gt;</code></li>
+<li><code>&amp;Input</code></li>
+<li><code>&amp;mut Camera</code></li>
+</ul>
+<p>The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.</p>
+<p>Once you run the update_loop, the window will start to appear. You can also leave the loop empty for an empty screen! The loop also allows to use the <code>move</code> keyword before for passing variables from outside the scope to the inside of the loop.</p>
+<p>Creating an update loop that's empty is as easy as:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// the underscores shows that we do not want to use them now.
+// The `move` keyword makes it possible to use variables from outside of the loop scope.
+engine.update_loop(move |_, _, _, _, _| {})
+        .expect(&quot;Error during update loop&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>The function returns a <code>Result&lt;()&gt;</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="renderer"><a class="header" href="#renderer">Renderer</a></h1>
+<p>Let's talk about the renderer. <code>Renderer</code> handles everything that is about talking with the GPU to render things you specify. This includes</p>
+<ul>
+<li>Shaders</li>
+<li>Textures</li>
+<li>Vertices</li>
+<li>Uniform Buffers</li>
+</ul>
+<p>We'll discuss more about each of them later on, for now let's talk about how it looks like and how it works.</p>
+<p>BE provides many verity on creation of them. You can build, append, or build and append. you can also update and remove them!</p>
+<p>There are default data of them except for vertices. The exist on the 0th index. Which includes a default uniform buffer (transformation, camera and color), a default texture (one white pixel), and a default shader. We'll talk about them later on.</p>
+<h2 id="pipeline"><a class="header" href="#pipeline">Pipeline</a></h2>
+<p>The Pipeline is the way that BE handles data to renderer. BE stores data for rendering on a dynamically sized array and gives you their index on time of creation. A <code>Pipeline</code> struct holds one index for each of those four things listed above. At time of render, the values are then fetched from the array and sent to GPU. We will learn about the order and position of each of them when rendering, later. For now, think of pipeline as the data holder of your object.</p>
+<h2 id="shader"><a class="header" href="#shader">Shader</a></h2>
+<p>Shaders are programs that run in the GPU. BE uses <a href="https://www.w3.org/TR/WGSL/">WGSL</a> which is the main shading language of WebGPU.</p>
+<p>As of yet, only vertex and fragment stages are supported. You can also change many other aspects such as cull face, render mode, and more at the time of shader creation!</p>
 
                     </main>
 
