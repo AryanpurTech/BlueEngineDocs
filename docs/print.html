@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="philosophy.html"><strong aria-hidden="true">2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="hello_world.html"><strong aria-hidden="true">4.</strong> Hello World</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -143,6 +143,20 @@
 <hr />
 <p>The engine is licensed under Apache-2.0 license and includes all the files in this repository, unless stated otherwise.</p>
 <p>Edit this guide on the <a href="https://github.com/ElhamAryanpur/BlueEngineDocs">Blue Engine Doc</a> repository.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="setup"><a class="header" href="#setup">Setup</a></h1>
+<p>To start, we need to setup the framework first. This guide expects you to know basics of Rust. If not, start <a href="https://rust-lang.org">here</a></p>
+<p>Fortunately, the installation is very simple; thanks to rust's ecosystem. Because we're using Rust, make sure you have it <a href="https://www.rust-lang.org/tools/install">installed</a> and working properly along <code>cargo</code>.</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>If you'd like to try testing the engine before starting to work with it, you'd need to download/clone the repository.</p>
+<pre><code class="language-bash">git clone https://github.com/ElhamAryanpur/BlueEngine
+
+cd BlueEngine 
+</code></pre>
+<p>After that, you can try running examples that are currently provided. For example, let's try running Triangle example that shows a white-ish triangle on your screen:</p>
+<pre><code class="language-bash">cargo run --example triangle
+</code></pre>
+<p>Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to <a href="https://github.com/ElhamAryanpur/BlueEngine/issues">open a new issue</a> and I'll look into it.</p>
+<p>The <a href="https://github.com/ElhamAryanpur/BlueEngine/tree/master/examples">examples</a> folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="philosophy-structure-and-technologies"><a class="header" href="#philosophy-structure-and-technologies">Philosophy, structure, and technologies</a></h1>
 <h2 id="philosophy"><a class="header" href="#philosophy">Philosophy</a></h2>
 <p>The philosophy is always to bring as much ease of use and flexibility as possible. Anything done with the engine, the changes made, the features added, e.t.c. are all made to be as easy-to-use and as flexible as possible for everyone to have a peace of mind when using. Doing graphics shouldn't be hard even at such low level right?</p>
@@ -163,20 +177,6 @@
 <h2 id="technologies-used"><a class="header" href="#technologies-used">Technologies used</a></h2>
 <p>I try to use standard library as much as possible, but some parts are too much to write, or not possible within the bounds of standard library such as windowing, rendering APIs, e.t.c. For these, I use crates that already provide those. Even if a need for an external crate rises, I try as much as possible to ensure cross-platform portability, ease of use, and keep it as lightweight as possible, and to not be a roadblock for development and use.</p>
 <p>The technologies used as of now, can be viewed on the <code>cargo.toml</code> file in the root directory under <code>dependencies</code> section.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="setup"><a class="header" href="#setup">Setup</a></h1>
-<p>To start, we need to setup the framework first. This guide expects you to know basics of Rust. If not, start <a href="https://rust-lang.org">here</a></p>
-<p>Fortunately, the installation is very simple; thanks to rust's ecosystem. Because we're using Rust, make sure you have it <a href="https://www.rust-lang.org/tools/install">installed</a> and working properly along <code>cargo</code>.</p>
-<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
-<p>If you'd like to try testing the engine before starting to work with it, you'd need to download/clone the repository.</p>
-<pre><code class="language-bash">git clone https://github.com/ElhamAryanpur/BlueEngine
-
-cd BlueEngine 
-</code></pre>
-<p>After that, you can try running examples that are currently provided. For example, let's try running Triangle example that shows a white-ish triangle on your screen:</p>
-<pre><code class="language-bash">cargo run --example triangle
-</code></pre>
-<p>Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to <a href="https://github.com/ElhamAryanpur/BlueEngine/issues">open a new issue</a> and I'll look into it.</p>
-<p>The <a href="https://github.com/ElhamAryanpur/BlueEngine/tree/master/examples">examples</a> folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
 <h2 id="setting-up"><a class="header" href="#setting-up">Setting up</a></h2>
 <p>Firstly let's create a new rust project:</p>
@@ -221,6 +221,35 @@ fn main(){
 <pre><code class="language-bash">cargo run
 </code></pre>
 <p>You should now see an empty window! Congratulations you just created your first window using Blue Engine!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="engine-introduction"><a class="header" href="#engine-introduction">Engine introduction</a></h1>
+<p><code>Engine</code> is the starting point for using the BE (Blue Engine). It acts like a tree, with each branch being a functionality. This is an opinionated approach and not often liked by all of Rust's community as it brings up some issues for the borrow checker. However it is much more mature than early testings and it appears to be working for our case, so unless highly requested or a major issue appears it will remain in such way.</p>
+<p>The <code>Engine</code> is a <code>struct</code> type, and contains:</p>
+<ul>
+<li><code>Renderer</code></li>
+<li><code>Window</code></li>
+<li><code>Objects</code></li>
+<li><code>Camera</code></li>
+<li><code>event_loop</code> [hidden to create only]</li>
+</ul>
+<p>We will discuss each of them in great detail later on. For now, let's look at an example on how to start using the <code>Engine</code>.</p>
+<pre><pre class="playground"><code class="language-rust">// import the Engine and WindowDescriptor from the header.
+use blue_engine::header::{Engine, WindowDescriptor};
+
+fn main() {
+    // you can create the engine through the Engine::new()
+    // it returns a Result&lt;Engine&gt;
+    let engine = Engine::new(WindowDescriptor::default()).expect(&quot;Couldn't create the engine&quot;);
+}
+</code></pre></pre>
+<p><code>WindowDescriptor</code> is used for window settings as the <code>Engine</code> initializes it too. The <code>WindowDescriptor</code> has these default values:</p>
+<table><thead><tr><th>Parameter</th><th>value</th></tr></thead><tbody>
+<tr><td>width</td><td>800</td></tr>
+<tr><td>height</td><td>600</td></tr>
+<tr><td>title</td><td>Blue Engine</td></tr>
+<tr><td>decorations</td><td>true</td></tr>
+<tr><td>resizable</td><td>true</td></tr>
+</tbody></table>
+<p>You can also alter only few and leave the rest as default.</p>
 
                     </main>
 
