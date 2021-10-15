@@ -68,4 +68,20 @@ The textures are sampled as well, and they can be accessed on group 0 on slot:
 
 ## Vertices
 
-Vertices
+A `Vertex` in BE is a point in 3D space that also includes the positions of texture associated with it.
+
+Vertices in BE exist with their indices to create shapes and reuse vertex data. And by default they're rendered in counter clockwise manner and in triangle form.
+
+There are no settings for vertices. You can access vertex position [vector3] at location 0, and the associated texture coordination [vector2] at location 1 in the vertex shader. And you can output the texture coordinates to fragment shader at location 0.
+
+## Uniform Buffers
+
+Uniform buffers are small bits of custom data sent to the GPU. BE supports 3 types of Uniform Buffers:
+
+* Float32
+* Vector4 of Float32
+* Matrix4x4 of Float32
+
+Many uniform buffers can be sent at one time, and the order that you send them matters. You can access them on group 2 and the slot is in the order you specify.
+
+By default the starting would be conditional. If you disable camera, it'll start at 1, elsewise will start at 2. as the 0th slot is for transformation matrix.
