@@ -150,6 +150,45 @@
 <h2 id="shader"><a class="header" href="#shader">Shader</a></h2>
 <p>Shaders are programs that run in the GPU. BE uses <a href="https://www.w3.org/TR/WGSL/">WGSL</a> which is the main shading language of WebGPU.</p>
 <p>As of yet, only vertex and fragment stages are supported. You can also change many other aspects such as cull face, render mode, and more at the time of shader creation!</p>
+<p>You can change those settings through the <code>ShaderSetting</code>, and of course default settings also exist. They are:</p>
+<table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>
+<tr><td>topology</td><td>TriangleList</td></tr>
+<tr><td>strip_index_format</td><td>None</td></tr>
+<tr><td>front_face</td><td>Ccw</td></tr>
+<tr><td>cull_mode</td><td>Back</td></tr>
+<tr><td>polygon_mode</td><td>Fill</td></tr>
+<tr><td>clamp_depth</td><td>false</td></tr>
+<tr><td>conservative</td><td>false</td></tr>
+<tr><td>count</td><td>1</td></tr>
+<tr><td>mask</td><td>!0</td></tr>
+<tr><td>alpha_to_coverage_enabled</td><td>false</td></tr>
+</tbody></table>
+<p>To create a new shader through BE and append it to the storage for render, you can use the <code>build_and_append_shader()</code>.</p>
+<blockquote>
+<p>The shader source as of yet (0.2.5) only supports WGSL, but later on the support for SPIR-V compiled shaders will also be available.</p>
+</blockquote>
+<h2 id="textures"><a class="header" href="#textures">Textures</a></h2>
+<p>Textures are images that can be burned to vertices on the scene. They have all sorts of uses, e.g. adding textures to plane to make it look like a wall or ground, or textures to character shapes for more details.</p>
+<p>As of now (0.2.5), BE only supports RGBA based textures. PNG is the recommended file format and the format is Rgba8UnormSrgb.</p>
+<p>There's two ways to create BE textures</p>
+<ol>
+<li>Creating an <code>image::DynamicImage</code> and appending that</li>
+<li>Using bytes of the image and creating one.</li>
+</ol>
+<p><code>image</code> is a rust crate that BE uses under the hood for processing texture data.</p>
+<p>BE also allows for different modes of the texture in case the texture couldn't fit, which are:</p>
+<ul>
+<li>Clamp</li>
+<li>Repeat</li>
+<li>Mirror repeat</li>
+</ul>
+<p>The textures are sampled as well, and they can be accessed on group 0 on slot:</p>
+<ol start="0">
+<li>Texture</li>
+<li>Sampler</li>
+</ol>
+<h2 id="vertices"><a class="header" href="#vertices">Vertices</a></h2>
+<p>Vertices</p>
 
                     </main>
 
