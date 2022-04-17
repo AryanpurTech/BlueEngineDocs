@@ -2,7 +2,7 @@
 
 ## Engine
 
-`Engine` is the starting point for using the BE (Blue Engine). It acts like a tree, with each branch being a functionality. This is an opinionated approach and not often liked by all of Rust's community as it brings up some issues for the borrow checker. However it is much more mature than early testings and it appears to be working for our case, so unless highly requested or a major issue appears it will remain in such way.
+`Engine` is the starting point for using the BE (Blue Engine). It acts like a tree, with each branch being a functionality. This is an opinionated approach and not often liked by all of Rust's community as it brings up some issues for the borrow checker. However  it appears to be working for our case, so unless highly requested or a major issue appears it will remain in such way. In future the monolithic structure will be changed with modular approach, but as of current versions, it will remain as such.
 
 The `Engine` is a `struct` type, and contains:
 
@@ -64,4 +64,4 @@ engine.update_loop(move |_, _, _, _, _| {})
         .expect("Error during update loop");
 ```
 
-The function returns a `Result<()>`.
+This function returns a `Result<()>`.
