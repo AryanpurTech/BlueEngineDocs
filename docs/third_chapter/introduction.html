@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Engine - Blue Engine</title>
+        <title>Examples - Blue Engine</title>
 
 
         <!-- Custom HTML head -->
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html" class="active"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="../third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> Examples</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="../third_chapter/introduction.html" class="active"><strong aria-hidden="true">3.</strong> Examples</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -142,74 +142,38 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="engine-introduction"><a class="header" href="#engine-introduction">Engine introduction</a></h1>
-<h2 id="engine"><a class="header" href="#engine">Engine</a></h2>
-<p><code>Engine</code> is the starting point for using the BE (Blue Engine). It acts like a tree, with each branch being a functionality. This is an opinionated approach and not often liked by all of Rust's community as it brings up some issues for the borrow checker. However  it appears to be working for our case, so unless highly requested or a major issue appears it will remain in such way. In future the monolithic structure will be changed with modular approach, but as of current versions, it will remain as such.</p>
-<p>The <code>Engine</code> is a <code>struct</code> type, and contains:</p>
+                        <h1 id="example-projects"><a class="header" href="#example-projects">Example projects</a></h1>
+<p>Let's make an example project, we'll start from the basics and go deep as time goes.</p>
+<p>In the end you'll learn how to:</p>
 <ul>
-<li><code>Renderer</code></li>
-<li><code>Window</code></li>
-<li><code>Objects</code></li>
-<li><code>Camera</code></li>
-<li><code>event_loop</code> [hidden to create only]</li>
+<li>
+<p>create window and modify it</p>
+</li>
+<li>
+<p>add objects to the scene</p>
+</li>
+<li>
+<p>modify objects and give them movement</p>
+</li>
+<li>
+<p>add many objects and move all of them</p>
+</li>
+<li>
+<p>add gui (use optional featues in the engine)</p>
+</li>
+<li>
+<p>interop gui with the scene</p>
+</li>
 </ul>
-<p>We will discuss each of them in great detail later on. For now, let's look at an example on how to start using the <code>Engine</code>.</p>
-<pre><pre class="playground"><code class="language-rust">// import the Engine and WindowDescriptor from the header.
-use blue_engine::header::{Engine, WindowDescriptor};
-
-fn main() {
-    // you can create the engine through the Engine::new()
-    // it returns a Result&lt;Engine&gt;
-    let engine = Engine::new(WindowDescriptor::default()).expect(&quot;Couldn't create the engine&quot;);
-}
-</code></pre></pre>
-<p><code>WindowDescriptor</code> is used for window settings as the <code>Engine</code> initializes it too. The <code>WindowDescriptor</code> has these default values:</p>
-<table><thead><tr><th>Parameter</th><th>value</th></tr></thead><tbody>
-<tr><td>width</td><td>800</td></tr>
-<tr><td>height</td><td>600</td></tr>
-<tr><td>title</td><td>Blue Engine</td></tr>
-<tr><td>decorations</td><td>true</td></tr>
-<tr><td>resizable</td><td>true</td></tr>
-</tbody></table>
-<p>You can also alter only few and leave the rest as default.</p>
-<p>After you initialized the engine, you can start the update loop. The update loop runs code per frame, and also provides events and updates.</p>
-<blockquote>
-<p>note that the events are updated BEFORE each frame! So any changes you make in this frame, will be updated on the next frame.</p>
-</blockquote>
-<h2 id="update-loop"><a class="header" href="#update-loop">Update loop</a></h2>
-<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that provides these:</p>
-<ul>
-<li><code>&amp;mut Renderer</code></li>
-<li><code>&amp;Window</code></li>
-<li><code>&amp;mut Vec&lt;Object&gt;</code></li>
-<li><code>&amp;Input</code></li>
-<li><code>&amp;mut Camera</code></li>
-</ul>
-<p>The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.</p>
-<p>Once you run the update_loop, the window will start to appear. You can also leave the loop empty for an empty screen! The loop also allows to use the <code>move</code> keyword before for passing variables from outside the scope to the inside of the loop.</p>
-<p>Creating an update loop that's empty is as easy as:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// the underscores shows that we do not want to use them now.
-// The `move` keyword makes it possible to use variables from outside of the loop scope.
-engine.update_loop(move |_, _, _, _, _| {})
-        .expect(&quot;Error during update loop&quot;);
-<span class="boring">}
-</span></code></pre></pre>
-<p>This function returns a <code>Result&lt;()&gt;</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../first_chapter/hello_world.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../second_chapter/camera.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../second_chapter/renderer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -217,13 +181,10 @@ engine.update_loop(move |_, _, _, _, _| {})
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../first_chapter/hello_world.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../second_chapter/camera.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../second_chapter/renderer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

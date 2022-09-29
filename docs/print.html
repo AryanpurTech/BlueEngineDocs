@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> Examples</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -146,7 +146,7 @@
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>Here lives the guide for the <a href="https://github.com/ElhamAryanpur/BlueEngine">Blue Engine</a>, including examples, tips, tricks, philosophy, and more.</p>
 <p>The early idea for this project was to use this engine as the first layer for all future projects of myself, but later was decided that it should be made for general use. Now the engine can be used for games, GUIs, or even as a render backend.</p>
-<p>Although the engine is quite young in terms of development, the main focus is stability, flexibility, ease of use, and portability. The engine is actively used in my projects and <a href="https://github.com/Gigantesque">Gigantesque</a>!</p>
+<p>Although the engine is quite young in terms of development, the main focus is stability, flexibility, ease of use, and portability.</p>
 <p>We do have a small community as of now, mainly on <a href="https://discord.gg/s7xsj9q">discord</a>. So join us if you haven't yet!.</p>
 <hr />
 <p>The engine is licensed under Apache-2.0 license and includes all the files in this repository, unless stated otherwise.</p>
@@ -165,6 +165,59 @@ cd BlueEngine
 </code></pre>
 <p>Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to <a href="https://github.com/ElhamAryanpur/BlueEngine/issues">open a new issue</a> and I'll look into it.</p>
 <p>The <a href="https://github.com/ElhamAryanpur/BlueEngine/tree/master/examples">examples</a> folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.</p>
+<h2 id="new-blue-engine-project"><a class="header" href="#new-blue-engine-project">New Blue Engine project</a></h2>
+<p>To start a new Blue Engine project, open your command line in the desired folder, and create a new project with cargo:</p>
+<pre><code class="language-bash">cargo init my_awesome_be_project
+</code></pre>
+<p>Make sure to replace <code>my_awesome_be_project</code> with your desired name, or, just leave it with that, we know it'll be awesome either way :D</p>
+<p>After that, add this as dependency in your <code>Cargo.toml</code> in the project folder:</p>
+<pre><code class="language-toml"># The star tells the package manager to download the latest version
+blue_engine = &quot;*&quot;
+</code></pre>
+<p>If you want a specific version, you can specify it too! E.g. the current published version as of this writing:</p>
+<pre><code class="language-toml">blue_engine = &quot;0.3.7&quot;
+</code></pre>
+<p>If you'd like to enable an optional feature, you can specify it in the <code>features</code> list:</p>
+<pre><code class="language-toml"># For example enable gui support
+blue_engine = { version = &quot;*&quot;, features = [&quot;gui&quot;] }
+</code></pre>
+<p>That's it! Just open the <code>main.rs</code> file in the <code>src</code> folder and make the world a better place!</p>
+<h2 id="turbo-build-times"><a class="header" href="#turbo-build-times">Turbo build times</a></h2>
+<p>This will allow fast build times on debug. This works by building a shared library/dynamic library and linking it with executable. Rust's compiler spends quite some time to pack and link everything into an exectuable on each build, so this will remove the need to repack and link the engine, thus improving the build times significantly. There are a few steps to follow, but they're not hard.</p>
+<blockquote>
+<p><code>DO NOT USE FOR FINAL RELEASE! OR ELSE WILL NEED TO COPY EXTRA FILES ALONG YOUR EXECUTABLE.</code></p>
+</blockquote>
+<h3 id="clone-the-engine"><a class="header" href="#clone-the-engine">Clone the engine</a></h3>
+<p>We first start by cloning the engine from github. Move to parent directory of your project, and clone the engine:</p>
+<pre><code class="language-bash">git clone https://github.com/ElhamAryanpur/BlueEngine
+</code></pre>
+<p>Your project structure should look something like this:</p>
+<pre><code class="language-bash">Projects:
+    - blue_engine
+    - my_app
+</code></pre>
+<p>With <code>my_app</code> being your project. This way it ensures you can use it for multiple projects at once too as it's a one-time setup.</p>
+<h3 id="setup-the-engine"><a class="header" href="#setup-the-engine">Setup the engine</a></h3>
+<p>Open the engine's folder, and add this to the <code>Cargo.toml</code> under <code>[lib]</code>.</p>
+<pre><code class="language-toml">crate-type = [&quot;dylib&quot;]
+</code></pre>
+<p>This essentially tells the compiler to compile the engine as a shared library/dynamic library, after finishing the setup, in the build folder you should be able to see a file with similar name to <code>libblue_engine</code>.</p>
+<h3 id="setup-your-project"><a class="header" href="#setup-your-project">Setup your project</a></h3>
+<p>And on your project's <code>Cargo.toml</code> under <code>[dependencies]</code>, add <code>path = &quot;../blue_engine&quot;</code> to the <code>blue_engine</code> as such:</p>
+<pre><code class="language-toml">blue_engine = { path = &quot;../blue_engine&quot;, .. } # replace the .. with the rest. e.g. version, features, e.t.c.
+</code></pre>
+<h4 id="windows"><a class="header" href="#windows">Windows</a></h4>
+<p>For windows, you need to go one more step. This essentially doesn't work normally, hence you'll need to add some more configuration and switch to nightly.</p>
+<p>Switch to nightly:</p>
+<pre><code class="language-bash">rustup override set nightly
+</code></pre>
+<p>This sets current project to nightly only. And next step is in your project's directory, add a folder with the name <code>.cargo</code>, and add a file in it with the name <code>config.toml</code> and copy these into it:</p>
+<pre><code class="language-toml">[target.x86_64-pc-windows-msvc]
+linker = &quot;rust-lld.exe&quot;
+rustflags = [&quot;-Zshare-generics=off&quot;]
+</code></pre>
+<h3 id="enjoy-fast-builds"><a class="header" href="#enjoy-fast-builds">Enjoy fast builds</a></h3>
+<p>And that's it! You should now see faster build times. For final release versions, make sure to just remove <code>path = &quot;../blue_engine&quot;</code> from dependency, and you should be good to go for release. You can also configure it in <code>Cargo.toml</code> to use the path for debug profile and non turbo build for release profile as well.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="philosophy-structure-and-technologies"><a class="header" href="#philosophy-structure-and-technologies">Philosophy, structure, and technologies</a></h1>
 <h2 id="philosophy"><a class="header" href="#philosophy">Philosophy</a></h2>
 <p>The philosophy is always to bring as much ease of use and flexibility as possible. Anything done with the engine, the changes made, the features added, e.t.c. are all made to be as easy-to-use and as flexible as possible for everyone to have a peace of mind when using. Doing graphics shouldn't be hard even at such low level right?</p>
@@ -185,6 +238,46 @@ cd BlueEngine
 <h2 id="technologies-used"><a class="header" href="#technologies-used">Technologies used</a></h2>
 <p>I try to use standard library as much as possible, but some parts are too much to write, or not possible within the bounds of standard library such as windowing, rendering APIs, e.t.c. For these, I use crates that already provide those. Even if a need for an external crate rises, I try as much as possible to ensure cross-platform portability, ease of use, and keep it as lightweight as possible, and to not be a roadblock for development and use.</p>
 <p>The technologies used as of now, can be viewed on the <code>cargo.toml</code> file in the root directory under <code>dependencies</code> section.</p>
+<h2 id="dependency-justification-as-of-037"><a class="header" href="#dependency-justification-as-of-037">Dependency justification as of 0.3.7</a></h2>
+<ul>
+<li>
+<p><code>futures = &quot;0.3.21&quot;</code>: is used for blocking the async functions that is used internally in lower level apis.</p>
+</li>
+<li>
+<p><code>winit = &quot;0.26.1&quot;</code>: handles the creation and control of windows and contexts.</p>
+</li>
+<li>
+<p><code>image = &quot;0.24.2&quot;</code>: used for texture reading and handling of images.</p>
+</li>
+<li>
+<p><code>bytemuck = { version = &quot;1.10.0&quot;, features = [&quot;derive&quot;] }</code>: small utilities for casting between plain data types. Helps with sending bytes to gpu.</p>
+</li>
+<li>
+<p><code>winit_input_helper = &quot;0.12.0&quot;</code>: helps with gathering input event data, and leaving an easy-to-use list of functions to access them. It's more of a quality-of-life dependency.</p>
+</li>
+<li>
+<p><code>anyhow = &quot;1.0.57&quot;</code>: helps with error handling.</p>
+</li>
+<li>
+<p><code>env_logger = &quot;0.9.0&quot;</code>: Logs internal events, and gives useful error and logs. Very good for debugging!</p>
+</li>
+<li>
+<p><code>wgpu = { version = &quot;0.13.0&quot; }</code>: a wrapper over graphics api, based on WebGPU standard. Very awesome api for rendering graphics that just makes sense! It also helps with having your graphic run everywhere optimally.</p>
+</li>
+<li>
+<p><code>nalgebra-glm = &quot;0.17.0&quot;</code>: math library for all the math that is used in the engine.</p>
+</li>
+</ul>
+<hr />
+<p>These are optional dependencies that are enabled with flags:</p>
+<ul>
+<li>
+<p><code>gltf = { version = &quot;1.0.0&quot;, optional = true }</code>: used for handling gltf 2.0 and glb files. Enabled with <code>model_loader</code> feature flag.</p>
+</li>
+<li>
+<p><code>imgui-wgpu = { version = &quot;0.20.0&quot;, optional = true }</code>, <code>imgui-winit-support = { version = &quot;0.8.2&quot;, optional = true, features = [ &quot;winit-26&quot;, ] }</code>, and <code>imgui = { version = &quot;0.8.2&quot;, optional = true }</code>: are used for GUI (Graphical User Interface), uses industry-proven c++ imgui library. This can be enabled with <code>gui</code> feature flag.</p>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
 <h2 id="setting-up"><a class="header" href="#setting-up">Setting up</a></h2>
 <p>Firstly let's create a new rust project:</p>
@@ -342,12 +435,13 @@ engine.update_loop(move |_, _, _, _, _| {})
 <p>Vertices in BE exist with their indices to create shapes and reuse vertex data. And by default they're rendered in counter clockwise manner and in triangle form.</p>
 <p>There are no settings for vertices. You can access vertex position [vector3] at location 0, and the associated texture coordination [vector2] at location 1 in the vertex shader. And you can output the texture coordinates to fragment shader at location 0.</p>
 <h2 id="uniform-buffers"><a class="header" href="#uniform-buffers">Uniform Buffers</a></h2>
-<p>Uniform buffers are small bits of custom data sent to the GPU. BE supports 3 types of Uniform Buffers:</p>
+<p>Uniform buffers are small bits of custom data sent to the GPU. BE supports 3 default types of Uniform Buffers:</p>
 <ul>
 <li>Float32</li>
 <li>Vector4 of Float32</li>
 <li>Matrix4x4 of Float32</li>
 </ul>
+<p>You can also define a custom Uniform Buffer structure, just make sure to implement <code>Pod</code> and <code>Zeroable</code> traits, along <code>C</code> layout.</p>
 <p>Many uniform buffers can be sent at one time, and the order that you send them matters. You can access them on group 2 and the slot is in the order you specify.</p>
 <p>By default the starting would be conditional. If you disable camera, it'll start at 1, elsewise will start at 2. as the 0th slot is for transformation matrix.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="windowing-input"><a class="header" href="#windowing-input">Windowing, input</a></h1>
@@ -413,6 +507,29 @@ engine.update_loop(move |_, _, _, _, _| {})
 </ul>
 <p>Along with these options, you can alter the parameters through methods that are assigned. For example <code>set_position</code> to change the position of the camera in the scene. Each of these methods start with <code>set_</code> and then the option name, e.g. <code>set_fov</code> or <code>set_far</code>.</p>
 <p>More options and features will be added as time goes.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-projects"><a class="header" href="#example-projects">Example projects</a></h1>
+<p>Let's make an example project, we'll start from the basics and go deep as time goes.</p>
+<p>In the end you'll learn how to:</p>
+<ul>
+<li>
+<p>create window and modify it</p>
+</li>
+<li>
+<p>add objects to the scene</p>
+</li>
+<li>
+<p>modify objects and give them movement</p>
+</li>
+<li>
+<p>add many objects and move all of them</p>
+</li>
+<li>
+<p>add gui (use optional featues in the engine)</p>
+</li>
+<li>
+<p>interop gui with the scene</p>
+</li>
+</ul>
 
                     </main>
 

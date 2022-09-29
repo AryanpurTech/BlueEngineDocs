@@ -74,11 +74,13 @@ There are no settings for vertices. You can access vertex position [vector3] at 
 
 ## Uniform Buffers
 
-Uniform buffers are small bits of custom data sent to the GPU. BE supports 3 types of Uniform Buffers:
+Uniform buffers are small bits of custom data sent to the GPU. BE supports 3 default types of Uniform Buffers:
 
 * Float32
 * Vector4 of Float32
 * Matrix4x4 of Float32
+
+You can also define a custom Uniform Buffer structure, just make sure to implement `Pod` and `Zeroable` traits, along `C` layout.
 
 Many uniform buffers can be sent at one time, and the order that you send them matters. You can access them on group 2 and the slot is in the order you specify.
 

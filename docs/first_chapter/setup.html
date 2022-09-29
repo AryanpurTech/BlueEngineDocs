@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html" class="active"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html" class="active"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="../third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> Examples</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -156,6 +156,59 @@ cd BlueEngine
 </code></pre>
 <p>Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to <a href="https://github.com/ElhamAryanpur/BlueEngine/issues">open a new issue</a> and I'll look into it.</p>
 <p>The <a href="https://github.com/ElhamAryanpur/BlueEngine/tree/master/examples">examples</a> folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.</p>
+<h2 id="new-blue-engine-project"><a class="header" href="#new-blue-engine-project">New Blue Engine project</a></h2>
+<p>To start a new Blue Engine project, open your command line in the desired folder, and create a new project with cargo:</p>
+<pre><code class="language-bash">cargo init my_awesome_be_project
+</code></pre>
+<p>Make sure to replace <code>my_awesome_be_project</code> with your desired name, or, just leave it with that, we know it'll be awesome either way :D</p>
+<p>After that, add this as dependency in your <code>Cargo.toml</code> in the project folder:</p>
+<pre><code class="language-toml"># The star tells the package manager to download the latest version
+blue_engine = &quot;*&quot;
+</code></pre>
+<p>If you want a specific version, you can specify it too! E.g. the current published version as of this writing:</p>
+<pre><code class="language-toml">blue_engine = &quot;0.3.7&quot;
+</code></pre>
+<p>If you'd like to enable an optional feature, you can specify it in the <code>features</code> list:</p>
+<pre><code class="language-toml"># For example enable gui support
+blue_engine = { version = &quot;*&quot;, features = [&quot;gui&quot;] }
+</code></pre>
+<p>That's it! Just open the <code>main.rs</code> file in the <code>src</code> folder and make the world a better place!</p>
+<h2 id="turbo-build-times"><a class="header" href="#turbo-build-times">Turbo build times</a></h2>
+<p>This will allow fast build times on debug. This works by building a shared library/dynamic library and linking it with executable. Rust's compiler spends quite some time to pack and link everything into an exectuable on each build, so this will remove the need to repack and link the engine, thus improving the build times significantly. There are a few steps to follow, but they're not hard.</p>
+<blockquote>
+<p><code>DO NOT USE FOR FINAL RELEASE! OR ELSE WILL NEED TO COPY EXTRA FILES ALONG YOUR EXECUTABLE.</code></p>
+</blockquote>
+<h3 id="clone-the-engine"><a class="header" href="#clone-the-engine">Clone the engine</a></h3>
+<p>We first start by cloning the engine from github. Move to parent directory of your project, and clone the engine:</p>
+<pre><code class="language-bash">git clone https://github.com/ElhamAryanpur/BlueEngine
+</code></pre>
+<p>Your project structure should look something like this:</p>
+<pre><code class="language-bash">Projects:
+    - blue_engine
+    - my_app
+</code></pre>
+<p>With <code>my_app</code> being your project. This way it ensures you can use it for multiple projects at once too as it's a one-time setup.</p>
+<h3 id="setup-the-engine"><a class="header" href="#setup-the-engine">Setup the engine</a></h3>
+<p>Open the engine's folder, and add this to the <code>Cargo.toml</code> under <code>[lib]</code>.</p>
+<pre><code class="language-toml">crate-type = [&quot;dylib&quot;]
+</code></pre>
+<p>This essentially tells the compiler to compile the engine as a shared library/dynamic library, after finishing the setup, in the build folder you should be able to see a file with similar name to <code>libblue_engine</code>.</p>
+<h3 id="setup-your-project"><a class="header" href="#setup-your-project">Setup your project</a></h3>
+<p>And on your project's <code>Cargo.toml</code> under <code>[dependencies]</code>, add <code>path = &quot;../blue_engine&quot;</code> to the <code>blue_engine</code> as such:</p>
+<pre><code class="language-toml">blue_engine = { path = &quot;../blue_engine&quot;, .. } # replace the .. with the rest. e.g. version, features, e.t.c.
+</code></pre>
+<h4 id="windows"><a class="header" href="#windows">Windows</a></h4>
+<p>For windows, you need to go one more step. This essentially doesn't work normally, hence you'll need to add some more configuration and switch to nightly.</p>
+<p>Switch to nightly:</p>
+<pre><code class="language-bash">rustup override set nightly
+</code></pre>
+<p>This sets current project to nightly only. And next step is in your project's directory, add a folder with the name <code>.cargo</code>, and add a file in it with the name <code>config.toml</code> and copy these into it:</p>
+<pre><code class="language-toml">[target.x86_64-pc-windows-msvc]
+linker = &quot;rust-lld.exe&quot;
+rustflags = [&quot;-Zshare-generics=off&quot;]
+</code></pre>
+<h3 id="enjoy-fast-builds"><a class="header" href="#enjoy-fast-builds">Enjoy fast builds</a></h3>
+<p>And that's it! You should now see faster build times. For final release versions, make sure to just remove <code>path = &quot;../blue_engine&quot;</code> from dependency, and you should be good to go for release. You can also configure it in <code>Cargo.toml</code> to use the path for debug profile and non turbo build for release profile as well.</p>
 
                     </main>
 

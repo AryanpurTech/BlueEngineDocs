@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html" class="active"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html" class="active"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="../third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> Examples</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -162,6 +162,46 @@
 <h2 id="technologies-used"><a class="header" href="#technologies-used">Technologies used</a></h2>
 <p>I try to use standard library as much as possible, but some parts are too much to write, or not possible within the bounds of standard library such as windowing, rendering APIs, e.t.c. For these, I use crates that already provide those. Even if a need for an external crate rises, I try as much as possible to ensure cross-platform portability, ease of use, and keep it as lightweight as possible, and to not be a roadblock for development and use.</p>
 <p>The technologies used as of now, can be viewed on the <code>cargo.toml</code> file in the root directory under <code>dependencies</code> section.</p>
+<h2 id="dependency-justification-as-of-037"><a class="header" href="#dependency-justification-as-of-037">Dependency justification as of 0.3.7</a></h2>
+<ul>
+<li>
+<p><code>futures = &quot;0.3.21&quot;</code>: is used for blocking the async functions that is used internally in lower level apis.</p>
+</li>
+<li>
+<p><code>winit = &quot;0.26.1&quot;</code>: handles the creation and control of windows and contexts.</p>
+</li>
+<li>
+<p><code>image = &quot;0.24.2&quot;</code>: used for texture reading and handling of images.</p>
+</li>
+<li>
+<p><code>bytemuck = { version = &quot;1.10.0&quot;, features = [&quot;derive&quot;] }</code>: small utilities for casting between plain data types. Helps with sending bytes to gpu.</p>
+</li>
+<li>
+<p><code>winit_input_helper = &quot;0.12.0&quot;</code>: helps with gathering input event data, and leaving an easy-to-use list of functions to access them. It's more of a quality-of-life dependency.</p>
+</li>
+<li>
+<p><code>anyhow = &quot;1.0.57&quot;</code>: helps with error handling.</p>
+</li>
+<li>
+<p><code>env_logger = &quot;0.9.0&quot;</code>: Logs internal events, and gives useful error and logs. Very good for debugging!</p>
+</li>
+<li>
+<p><code>wgpu = { version = &quot;0.13.0&quot; }</code>: a wrapper over graphics api, based on WebGPU standard. Very awesome api for rendering graphics that just makes sense! It also helps with having your graphic run everywhere optimally.</p>
+</li>
+<li>
+<p><code>nalgebra-glm = &quot;0.17.0&quot;</code>: math library for all the math that is used in the engine.</p>
+</li>
+</ul>
+<hr />
+<p>These are optional dependencies that are enabled with flags:</p>
+<ul>
+<li>
+<p><code>gltf = { version = &quot;1.0.0&quot;, optional = true }</code>: used for handling gltf 2.0 and glb files. Enabled with <code>model_loader</code> feature flag.</p>
+</li>
+<li>
+<p><code>imgui-wgpu = { version = &quot;0.20.0&quot;, optional = true }</code>, <code>imgui-winit-support = { version = &quot;0.8.2&quot;, optional = true, features = [ &quot;winit-26&quot;, ] }</code>, and <code>imgui = { version = &quot;0.8.2&quot;, optional = true }</code>: are used for GUI (Graphical User Interface), uses industry-proven c++ imgui library. This can be enabled with <code>gui</code> feature flag.</p>
+</li>
+</ul>
 
                     </main>
 
