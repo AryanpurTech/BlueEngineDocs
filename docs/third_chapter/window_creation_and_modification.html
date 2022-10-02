@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Philosophy, structure, and technologies - Blue Engine</title>
+        <title>Window creation and modification - Blue Engine</title>
 
 
         <!-- Custom HTML head -->
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html" class="active"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="../third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> An example project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../third_chapter/window_creation_and_modification.html"><strong aria-hidden="true">3.1.</strong> Window creation and modification</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="../first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="../first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="../second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="../second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="../third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> An example project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../third_chapter/window_creation_and_modification.html" class="active"><strong aria-hidden="true">3.1.</strong> Window creation and modification</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -119,7 +119,7 @@
                         <a href="https://github.com/AryanpurTech/BlueEngineDocs" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/AryanpurTech/BlueEngineDocs/edit/master/src/first_chapter/philosophy.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/AryanpurTech/BlueEngineDocs/edit/master/src/third_chapter/window_creation_and_modification.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -148,78 +148,59 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="philosophy-structure-and-technologies"><a class="header" href="#philosophy-structure-and-technologies">Philosophy, structure, and technologies</a></h1>
-<h2 id="philosophy"><a class="header" href="#philosophy">Philosophy</a></h2>
-<p>The philosophy is always to bring as much ease of use and flexibility as possible. Anything done with the engine, the changes made, the features added, e.t.c. are all made to be as easy-to-use and as flexible as possible for everyone to have a peace of mind when using. Doing graphics shouldn't be hard even at such low level right?</p>
-<p>For most people, use cases differ. And because of that, the level of abstraction should differ too; the engine must be flexible enough to accommodate that. This is how Blue Engine can be as high or low level when using as you need. Just need objects to be displayed? Sure thing, they're just one line away! Want to have custom built structure for your own shape and bring your custom engines upon it with custom shaders, textures, and more? We got you covered too! There's something for everyone!</p>
-<h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
-<p>The source code is structured to have a common place for every part of the engine. I took a bit of idea from structures of C/C++ projects for organizing the source code. And came up with a similar organizational structure.</p>
-<ul>
-<li>
-<p>all the <code>structs</code>, <code>types</code>, <code>enums</code>, e.t.c. are all under <code>header.rs</code> file. This file also specify if a part will be public for other crate use or not as well as global default data, such as default texture, default shader, and more.</p>
-</li>
-<li>
-<p>Methods' code and implementation live under their designated file. The target classes will be taken from the definitions file.</p>
-</li>
-<li>
-<p>Methods' code and other parts like camera, window, render, e.t.c. will each have their own files for custom and clean progress and to not interfere with each-other.</p>
-</li>
-</ul>
-<h2 id="technologies-used"><a class="header" href="#technologies-used">Technologies used</a></h2>
-<p>I try to use standard library as much as possible, but some parts are too much to write, or not possible within the bounds of standard library such as windowing, rendering APIs, e.t.c. For these, I use crates that already provide those. Even if a need for an external crate rises, I try as much as possible to ensure cross-platform portability, ease of use, and keep it as lightweight as possible, and to not be a roadblock for development and use.</p>
-<p>The technologies used as of now, can be viewed on the <code>cargo.toml</code> file in the root directory under <code>dependencies</code> section.</p>
-<h2 id="dependency-justification-as-of-037"><a class="header" href="#dependency-justification-as-of-037">Dependency justification as of 0.3.7</a></h2>
-<ul>
-<li>
-<p><code>futures = &quot;0.3.21&quot;</code>: is used for blocking the async functions that is used internally in lower level apis.</p>
-</li>
-<li>
-<p><code>winit = &quot;0.26.1&quot;</code>: handles the creation and control of windows and contexts.</p>
-</li>
-<li>
-<p><code>image = &quot;0.24.2&quot;</code>: used for texture reading and handling of images.</p>
-</li>
-<li>
-<p><code>bytemuck = { version = &quot;1.10.0&quot;, features = [&quot;derive&quot;] }</code>: small utilities for casting between plain data types. Helps with sending bytes to gpu.</p>
-</li>
-<li>
-<p><code>winit_input_helper = &quot;0.12.0&quot;</code>: helps with gathering input event data, and leaving an easy-to-use list of functions to access them. It's more of a quality-of-life dependency.</p>
-</li>
-<li>
-<p><code>anyhow = &quot;1.0.57&quot;</code>: helps with error handling.</p>
-</li>
-<li>
-<p><code>env_logger = &quot;0.9.0&quot;</code>: Logs internal events, and gives useful error and logs. Very good for debugging!</p>
-</li>
-<li>
-<p><code>wgpu = { version = &quot;0.13.0&quot; }</code>: a wrapper over graphics api, based on WebGPU standard. Very awesome api for rendering graphics that just makes sense! It also helps with having your graphic run everywhere optimally.</p>
-</li>
-<li>
-<p><code>nalgebra-glm = &quot;0.17.0&quot;</code>: math library for all the math that is used in the engine.</p>
-</li>
-</ul>
-<hr />
-<p>These are optional dependencies that are enabled with flags:</p>
-<ul>
-<li>
-<p><code>gltf = { version = &quot;1.0.0&quot;, optional = true }</code>: used for handling gltf 2.0 and glb files. Enabled with <code>model_loader</code> feature flag.</p>
-</li>
-<li>
-<p><code>imgui-wgpu = { version = &quot;0.20.0&quot;, optional = true }</code>, <code>imgui-winit-support = { version = &quot;0.8.2&quot;, optional = true, features = [ &quot;winit-26&quot;, ] }</code>, and <code>imgui = { version = &quot;0.8.2&quot;, optional = true }</code>: are used for GUI (Graphical User Interface), uses industry-proven c++ imgui library. This can be enabled with <code>gui</code> feature flag.</p>
-</li>
-</ul>
+                        <h1 id="window-creation-and-customization"><a class="header" href="#window-creation-and-customization">Window creation and Customization</a></h1>
+<h2 id="window-creation"><a class="header" href="#window-creation">Window creation</a></h2>
+<p>For setup, check <a href="https://aryanpurtech.github.io/BlueEngineDocs/first_chapter/setup.html">setup</a> page from first chapter. To create a window in Blue Engine, first initialize the engine:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut engine = Engine::new(WindowDescriptor::default()).expect(&quot;Couldn't init the Engine&quot;); 
+<span class="boring">}
+</span></code></pre></pre>
+<p>This will initalize the engine, and making components ready for use. The engine by itself can't do anything, you'll need to start the update loop for things to happen:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>engine.update_loop(move |_, _, _, _, _| {}).expect(&quot;Error during update loop&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>The <code>update_loop</code> function takes in a closure, that it'll be run every frame. Try running it and you should see a blank window:</p>
+<pre><code class="language-bash">cargo run
+</code></pre>
+<p>This means everything is working. We will draw things in it later on, for now let's try changing the window a bit.</p>
+<p>The default window has a small size, and a default title. Let's say we want to change it from <code>800x600</code> to <code>1280x720</code> and change title to <code>My Awesome Render</code>. There are two ways to accomplish this.</p>
+<h2 id="customize-at-start-with-windowdescriptor"><a class="header" href="#customize-at-start-with-windowdescriptor">Customize at start with <code>WindowDescriptor</code></a></h2>
+<p>At the start, we declared a default <code>WindowDescriptor</code>, we can define our desired customization there to reflect it globally. To do this, simple define the <code>width</code>, <code>height</code>, and <code>title</code> fields in the <code>WindowDescriptor</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>WindowDescriptor {
+    width: 1280,
+    height: 720,
+    title: &quot;My Awesome Render&quot;,
+    ..Default::default() // To keep other details to default values
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="customize-later-on-the-runtime"><a class="header" href="#customize-later-on-the-runtime">Customize later on the runtime</a></h2>
+<p>During runtime, these options are available too! These settings can be accessed through <code>window</code> property of the <code>Engine</code> struct. Before <code>update_loop</code> simple use <code>engine.window.</code>, or during <code>update_loop</code> the window is exposed to the loop directly, and then type the setting you want, e.g. <code>set_inner_size</code> method for size. For our case, we can do this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>engine.window.set_inner_size(PhysicalSize::new(1280, 720));
+engine.window.set_title(&quot;My Awesome Render&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>Notice that we use <code>set_</code> before every option method, and we use <code>PhysicalSize</code> for size. There is also <code>LogicalSize</code> which you can use.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../first_chapter/setup.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../third_chapter/introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../first_chapter/hello_world.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -227,13 +208,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../first_chapter/setup.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../third_chapter/introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../first_chapter/hello_world.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

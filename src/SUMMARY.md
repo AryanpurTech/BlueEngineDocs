@@ -9,4 +9,5 @@
   - [Window](./second_chapter/window.md)
   - [Objects](./second_chapter/objects.md)
   - [Camera](./second_chapter/camera.md)
-- [Examples](./third_chapter/introduction.md)
+- [An example project](./third_chapter/introduction.md)
+  - [Window creation and modification](./third_chapter/window_creation_and_modification.md)

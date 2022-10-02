@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> Examples</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="first_chapter/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="first_chapter/setup.html"><strong aria-hidden="true">1.1.</strong> Installation and first look</a></li><li class="chapter-item expanded "><a href="first_chapter/philosophy.html"><strong aria-hidden="true">1.2.</strong> Philosophy, structure, and technologies</a></li><li class="chapter-item expanded "><a href="first_chapter/hello_world.html"><strong aria-hidden="true">1.3.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="second_chapter/introduction.html"><strong aria-hidden="true">2.</strong> Engine</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="second_chapter/renderer.html"><strong aria-hidden="true">2.1.</strong> Renderer</a></li><li class="chapter-item expanded "><a href="second_chapter/window.html"><strong aria-hidden="true">2.2.</strong> Window</a></li><li class="chapter-item expanded "><a href="second_chapter/objects.html"><strong aria-hidden="true">2.3.</strong> Objects</a></li><li class="chapter-item expanded "><a href="second_chapter/camera.html"><strong aria-hidden="true">2.4.</strong> Camera</a></li></ol></li><li class="chapter-item expanded "><a href="third_chapter/introduction.html"><strong aria-hidden="true">3.</strong> An example project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="third_chapter/window_creation_and_modification.html"><strong aria-hidden="true">3.1.</strong> Window creation and modification</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -116,6 +116,9 @@
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/AryanpurTech/BlueEngineDocs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
                     </div>
@@ -530,6 +533,50 @@ engine.update_loop(move |_, _, _, _, _| {})
 <p>interop gui with the scene</p>
 </li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="window-creation-and-customization"><a class="header" href="#window-creation-and-customization">Window creation and Customization</a></h1>
+<h2 id="window-creation"><a class="header" href="#window-creation">Window creation</a></h2>
+<p>For setup, check <a href="https://aryanpurtech.github.io/BlueEngineDocs/first_chapter/setup.html">setup</a> page from first chapter. To create a window in Blue Engine, first initialize the engine:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut engine = Engine::new(WindowDescriptor::default()).expect(&quot;Couldn't init the Engine&quot;); 
+<span class="boring">}
+</span></code></pre></pre>
+<p>This will initalize the engine, and making components ready for use. The engine by itself can't do anything, you'll need to start the update loop for things to happen:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>engine.update_loop(move |_, _, _, _, _| {}).expect(&quot;Error during update loop&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>The <code>update_loop</code> function takes in a closure, that it'll be run every frame. Try running it and you should see a blank window:</p>
+<pre><code class="language-bash">cargo run
+</code></pre>
+<p>This means everything is working. We will draw things in it later on, for now let's try changing the window a bit.</p>
+<p>The default window has a small size, and a default title. Let's say we want to change it from <code>800x600</code> to <code>1280x720</code> and change title to <code>My Awesome Render</code>. There are two ways to accomplish this.</p>
+<h2 id="customize-at-start-with-windowdescriptor"><a class="header" href="#customize-at-start-with-windowdescriptor">Customize at start with <code>WindowDescriptor</code></a></h2>
+<p>At the start, we declared a default <code>WindowDescriptor</code>, we can define our desired customization there to reflect it globally. To do this, simple define the <code>width</code>, <code>height</code>, and <code>title</code> fields in the <code>WindowDescriptor</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>WindowDescriptor {
+    width: 1280,
+    height: 720,
+    title: &quot;My Awesome Render&quot;,
+    ..Default::default() // To keep other details to default values
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="customize-later-on-the-runtime"><a class="header" href="#customize-later-on-the-runtime">Customize later on the runtime</a></h2>
+<p>During runtime, these options are available too! These settings can be accessed through <code>window</code> property of the <code>Engine</code> struct. Before <code>update_loop</code> simple use <code>engine.window.</code>, or during <code>update_loop</code> the window is exposed to the loop directly, and then type the setting you want, e.g. <code>set_inner_size</code> method for size. For our case, we can do this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>engine.window.set_inner_size(PhysicalSize::new(1280, 720));
+engine.window.set_title(&quot;My Awesome Render&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>Notice that we use <code>set_</code> before every option method, and we use <code>PhysicalSize</code> for size. There is also <code>LogicalSize</code> which you can use.</p>
 
                     </main>
 
