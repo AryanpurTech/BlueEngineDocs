@@ -147,27 +147,27 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>Here lives the guide for the <a href="https://github.com/ElhamAryanpur/BlueEngine">Blue Engine</a>, including examples, tips, tricks, philosophy, and more.</p>
+<p>Here lives the guide for the <a href="https://github.com/AryanpurTech/BlueEngine">Blue Engine</a>, including examples, tips, tricks, philosophy, and more.</p>
 <p>The early idea for this project was to use this engine as the first layer for all future projects of myself, but later was decided that it should be made for general use. Now the engine can be used for games, GUIs, or even as a render backend.</p>
 <p>Although the engine is quite young in terms of development, the main focus is stability, flexibility, ease of use, and portability.</p>
 <p>We do have a small community as of now, mainly on <a href="https://discord.gg/s7xsj9q">discord</a>. So join us if you haven't yet!.</p>
 <hr />
 <p>The engine is licensed under Apache-2.0 license and includes all the files in this repository, unless stated otherwise.</p>
-<p>Edit this guide on the <a href="https://github.com/ElhamAryanpur/BlueEngineDocs">Blue Engine Doc</a> repository.</p>
+<p>Edit this guide on the <a href="https://github.com/AryanpurTech/BlueEngineDocs">Blue Engine Doc</a> repository.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="setup"><a class="header" href="#setup">Setup</a></h1>
 <p>To start, we need to setup the framework first. This guide expects you to know basics of Rust. If not, start <a href="https://rust-lang.org">here</a></p>
 <p>Fortunately, the installation is very simple; thanks to rust's ecosystem. Because we're using Rust, make sure you have it <a href="https://www.rust-lang.org/tools/install">installed</a> and working properly along <code>cargo</code>.</p>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <p>If you'd like to try testing the engine before starting to work with it, you'd need to download/clone the repository.</p>
-<pre><code class="language-bash">git clone https://github.com/ElhamAryanpur/BlueEngine
+<pre><code class="language-bash">git clone https://github.com/AryanpurTech/BlueEngine
 
 cd BlueEngine 
 </code></pre>
 <p>After that, you can try running examples that are currently provided. For example, let's try running Triangle example that shows a white-ish triangle on your screen:</p>
 <pre><code class="language-bash">cargo run --example triangle
 </code></pre>
-<p>Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to <a href="https://github.com/ElhamAryanpur/BlueEngine/issues">open a new issue</a> and I'll look into it.</p>
-<p>The <a href="https://github.com/ElhamAryanpur/BlueEngine/tree/master/examples">examples</a> folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.</p>
+<p>Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to <a href="https://github.com/AryanpurTech/BlueEngine/issues">open a new issue</a> and I'll look into it.</p>
+<p>The <a href="https://github.com/AryanpurTech/BlueEngine/tree/master/examples">examples</a> folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.</p>
 <h2 id="new-blue-engine-project"><a class="header" href="#new-blue-engine-project">New Blue Engine project</a></h2>
 <p>To start a new Blue Engine project, open your command line in the desired folder, and create a new project with cargo:</p>
 <pre><code class="language-bash">cargo init my_awesome_be_project
@@ -192,7 +192,7 @@ blue_engine = { version = &quot;*&quot;, features = [&quot;gui&quot;] }
 </blockquote>
 <h3 id="clone-the-engine"><a class="header" href="#clone-the-engine">Clone the engine</a></h3>
 <p>We first start by cloning the engine from github. Move to parent directory of your project, and clone the engine:</p>
-<pre><code class="language-bash">git clone https://github.com/ElhamAryanpur/BlueEngine
+<pre><code class="language-bash">git clone https://github.com/AryanpurTech/BlueEngine
 </code></pre>
 <p>Your project structure should look something like this:</p>
 <pre><code class="language-bash">Projects:
@@ -274,12 +274,7 @@ rustflags = [&quot;-Zshare-generics=off&quot;]
 <hr />
 <p>These are optional dependencies that are enabled with flags:</p>
 <ul>
-<li>
-<p><code>gltf = { version = &quot;1.0.0&quot;, optional = true }</code>: used for handling gltf 2.0 and glb files. Enabled with <code>model_loader</code> feature flag.</p>
-</li>
-<li>
-<p><code>imgui-wgpu = { version = &quot;0.20.0&quot;, optional = true }</code>, <code>imgui-winit-support = { version = &quot;0.8.2&quot;, optional = true, features = [ &quot;winit-26&quot;, ] }</code>, and <code>imgui = { version = &quot;0.8.2&quot;, optional = true }</code>: are used for GUI (Graphical User Interface), uses industry-proven c++ imgui library. This can be enabled with <code>gui</code> feature flag.</p>
-</li>
+<li><code>gltf = { version = &quot;1.0.0&quot;, optional = true }</code>: used for handling gltf 2.0 and glb files. Enabled with <code>model_loader</code> feature flag.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
 <h2 id="setting-up"><a class="header" href="#setting-up">Setting up</a></h2>
@@ -301,7 +296,7 @@ fn main(){
     .expect(&quot;Couldn't init the Engine&quot;);                     // 2
 
     engine
-        .update_loop(move |_, _, _, _, _| {})                // 3, 4
+        .update_loop(move |_, _| {}, vec![])                 // 3, 4
         .expect(&quot;Error during update loop&quot;);                 // 5
 }
 </code></pre></pre>
@@ -312,11 +307,21 @@ fn main(){
 <li>The update loop is responsible for everything that you will do that needs to be updated or checked every frame. This includes checking for events such as inputs, or updating certain things if a change happens.</li>
 <li>The _ are to not use the parameters passed on. The update loop gives you access to 5 things in this order:
 <ol>
+<li>core:
+<ol>
 <li>renderer</li>
 <li>window</li>
 <li>objects</li>
+</ol>
+</li>
+<li>utils:
+<ol>
 <li>events</li>
 <li>camera</li>
+<li>encoder and view texture</li>
+<li>event fetcher structs</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>Update loop also returns a <code>Result&lt;()&gt;</code>. The errors that will happen through this means something during the update loop. So make sure to check for errors during the update loop as well, or not if you're a brave soul :)</li>
@@ -360,13 +365,19 @@ fn main() {
 <p>note that the events are updated BEFORE each frame! So any changes you make in this frame, will be updated on the next frame.</p>
 </blockquote>
 <h2 id="update-loop"><a class="header" href="#update-loop">Update loop</a></h2>
-<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that provides these:</p>
+<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that are grouped into two section and provides these:</p>
+<h3 id="core"><a class="header" href="#core">Core</a></h3>
 <ul>
 <li><code>&amp;mut Renderer</code></li>
-<li><code>&amp;Window</code></li>
+<li><code>&amp;mut Window</code></li>
 <li><code>&amp;mut Vec&lt;Object&gt;</code></li>
+</ul>
+<h3 id="utils"><a class="header" href="#utils">Utils</a></h3>
+<ul>
 <li><code>&amp;Input</code></li>
 <li><code>&amp;mut Camera</code></li>
+<li><code>(&amp;mut CommandEncoder, &amp;TextureView)</code></li>
+<li><code>&amp;mut Vec&lt;T&gt;</code> where <code>T: UpdateEvents + 'static</code></li>
 </ul>
 <p>The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.</p>
 <p>Once you run the update_loop, the window will start to appear. You can also leave the loop empty for an empty screen! The loop also allows to use the <code>move</code> keyword before for passing variables from outside the scope to the inside of the loop.</p>
@@ -546,7 +557,7 @@ engine.update_loop(move |_, _, _, _, _| {})
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>engine.update_loop(move |_, _, _, _, _| {}).expect(&quot;Error during update loop&quot;);
+</span>engine.update_loop(move |_, _| {}, vec![]).expect(&quot;Error during update loop&quot;);
 <span class="boring">}
 </span></code></pre></pre>
 <p>The <code>update_loop</code> function takes in a closure, that it'll be run every frame. Try running it and you should see a blank window:</p>

@@ -47,5 +47,3 @@ The technologies used as of now, can be viewed on the `cargo.toml` file in the r
 These are optional dependencies that are enabled with flags:
 
 * `gltf = { version = "1.0.0", optional = true }`: used for handling gltf 2.0 and glb files. Enabled with `model_loader` feature flag.
-
-* `imgui-wgpu = { version = "0.20.0", optional = true }`, `imgui-winit-support = { version = "0.8.2", optional = true, features = [ "winit-26", ] }`, and `imgui = { version = "0.8.2", optional = true }`: are used for GUI (Graphical User Interface), uses industry-proven c++ imgui library. This can be enabled with `gui` feature flag.

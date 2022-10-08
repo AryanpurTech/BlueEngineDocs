@@ -9,7 +9,7 @@ Fortunately, the installation is very simple; thanks to rust's ecosystem. Becaus
 If you'd like to try testing the engine before starting to work with it, you'd need to download/clone the repository.
 
 ```bash
-git clone https://github.com/ElhamAryanpur/BlueEngine
+git clone https://github.com/AryanpurTech/BlueEngine
 
 cd BlueEngine 
 ```
@@ -20,9 +20,9 @@ After that, you can try running examples that are currently provided. For exampl
 cargo run --example triangle
 ```
 
-Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to [open a new issue](https://github.com/ElhamAryanpur/BlueEngine/issues) and I'll look into it.
+Cargo will download dependencies, setup the engine, and run the example. After it's all done, a window will appear with the triangle in middle. If you can't see a triangle, make sure that your drivers are up-to-date. If any errors were shown on console and you think might be source of the problem, feel free to [open a new issue](https://github.com/AryanpurTech/BlueEngine/issues) and I'll look into it.
 
-The [examples](https://github.com/ElhamAryanpur/BlueEngine/tree/master/examples) folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.
+The [examples](https://github.com/AryanpurTech/BlueEngine/tree/master/examples) folder provides valuable source of examples on how the engine can be used. More examples will be added as the time goes. Although the API is unstable now, the examples keep up with the latest API changes.
 
 ## New Blue Engine project
 
@@ -67,7 +67,7 @@ This will allow fast build times on debug. This works by building a shared libra
 We first start by cloning the engine from github. Move to parent directory of your project, and clone the engine:
 
 ```bash
-git clone https://github.com/ElhamAryanpur/BlueEngine
+git clone https://github.com/AryanpurTech/BlueEngine
 ```
 
 Your project structure should look something like this:

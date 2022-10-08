@@ -43,13 +43,20 @@ After you initialized the engine, you can start the update loop. The update loop
 
 ## Update loop
 
-The update loop is method of `Engine` that has one parameter which is a mutable callback function, that provides these:
+The update loop is method of `Engine` that has one parameter which is a mutable callback function, that are grouped into two section and provides these:
+
+### Core
 
 * `&mut Renderer`
-* `&Window`
+* `&mut Window`
 * `&mut Vec<Object>`
+
+### Utils
+
 * `&Input`
 * `&mut Camera`
+* `(&mut CommandEncoder, &TextureView)`
+* `&mut Vec<T>` where `T: UpdateEvents + 'static`
   
 The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.
 

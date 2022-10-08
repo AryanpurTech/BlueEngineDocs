@@ -183,13 +183,19 @@ fn main() {
 <p>note that the events are updated BEFORE each frame! So any changes you make in this frame, will be updated on the next frame.</p>
 </blockquote>
 <h2 id="update-loop"><a class="header" href="#update-loop">Update loop</a></h2>
-<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that provides these:</p>
+<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that are grouped into two section and provides these:</p>
+<h3 id="core"><a class="header" href="#core">Core</a></h3>
 <ul>
 <li><code>&amp;mut Renderer</code></li>
-<li><code>&amp;Window</code></li>
+<li><code>&amp;mut Window</code></li>
 <li><code>&amp;mut Vec&lt;Object&gt;</code></li>
+</ul>
+<h3 id="utils"><a class="header" href="#utils">Utils</a></h3>
+<ul>
 <li><code>&amp;Input</code></li>
 <li><code>&amp;mut Camera</code></li>
+<li><code>(&amp;mut CommandEncoder, &amp;TextureView)</code></li>
+<li><code>&amp;mut Vec&lt;T&gt;</code> where <code>T: UpdateEvents + 'static</code></li>
 </ul>
 <p>The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.</p>
 <p>Once you run the update_loop, the window will start to appear. You can also leave the loop empty for an empty screen! The loop also allows to use the <code>move</code> keyword before for passing variables from outside the scope to the inside of the loop.</p>

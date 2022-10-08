@@ -168,7 +168,7 @@ fn main(){
     .expect(&quot;Couldn't init the Engine&quot;);                     // 2
 
     engine
-        .update_loop(move |_, _, _, _, _| {})                // 3, 4
+        .update_loop(move |_, _| {}, vec![])                 // 3, 4
         .expect(&quot;Error during update loop&quot;);                 // 5
 }
 </code></pre></pre>
@@ -179,11 +179,21 @@ fn main(){
 <li>The update loop is responsible for everything that you will do that needs to be updated or checked every frame. This includes checking for events such as inputs, or updating certain things if a change happens.</li>
 <li>The _ are to not use the parameters passed on. The update loop gives you access to 5 things in this order:
 <ol>
+<li>core:
+<ol>
 <li>renderer</li>
 <li>window</li>
 <li>objects</li>
+</ol>
+</li>
+<li>utils:
+<ol>
 <li>events</li>
 <li>camera</li>
+<li>encoder and view texture</li>
+<li>event fetcher structs</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>Update loop also returns a <code>Result&lt;()&gt;</code>. The errors that will happen through this means something during the update loop. So make sure to check for errors during the update loop as well, or not if you're a brave soul :)</li>
