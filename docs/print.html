@@ -182,7 +182,7 @@ blue_engine = &quot;*&quot;
 </code></pre>
 <p>If you'd like to enable an optional feature, you can specify it in the <code>features</code> list:</p>
 <pre><code class="language-toml"># For example enable gui support
-blue_engine = { version = &quot;*&quot;, features = [&quot;gui&quot;] }
+blue_engine = { version = &quot;*&quot;, features = [&quot;model_loading&quot;] }
 </code></pre>
 <p>That's it! Just open the <code>main.rs</code> file in the <code>src</code> folder and make the world a better place!</p>
 <h2 id="turbo-build-times"><a class="header" href="#turbo-build-times">Turbo build times</a></h2>
@@ -296,7 +296,7 @@ fn main(){
     .expect(&quot;Couldn't init the Engine&quot;);                     // 2
 
     engine
-        .update_loop(move |_, _| {}, vec![])                 // 3, 4
+        .update_loop(move |_, _, _, _, _| {})                 // 3, 4
         .expect(&quot;Error during update loop&quot;);                 // 5
 }
 </code></pre></pre>
@@ -307,21 +307,11 @@ fn main(){
 <li>The update loop is responsible for everything that you will do that needs to be updated or checked every frame. This includes checking for events such as inputs, or updating certain things if a change happens.</li>
 <li>The _ are to not use the parameters passed on. The update loop gives you access to 5 things in this order:
 <ol>
-<li>core:
-<ol>
 <li>renderer</li>
 <li>window</li>
 <li>objects</li>
-</ol>
-</li>
-<li>utils:
-<ol>
 <li>events</li>
 <li>camera</li>
-<li>encoder and view texture</li>
-<li>event fetcher structs</li>
-</ol>
-</li>
 </ol>
 </li>
 <li>Update loop also returns a <code>Result&lt;()&gt;</code>. The errors that will happen through this means something during the update loop. So make sure to check for errors during the update loop as well, or not if you're a brave soul :)</li>
@@ -365,19 +355,13 @@ fn main() {
 <p>note that the events are updated BEFORE each frame! So any changes you make in this frame, will be updated on the next frame.</p>
 </blockquote>
 <h2 id="update-loop"><a class="header" href="#update-loop">Update loop</a></h2>
-<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that are grouped into two section and provides these:</p>
-<h3 id="core"><a class="header" href="#core">Core</a></h3>
+<p>The update loop is method of <code>Engine</code> that has one parameter which is a mutable callback function, that provides these:</p>
 <ul>
 <li><code>&amp;mut Renderer</code></li>
 <li><code>&amp;mut Window</code></li>
 <li><code>&amp;mut Vec&lt;Object&gt;</code></li>
-</ul>
-<h3 id="utils"><a class="header" href="#utils">Utils</a></h3>
-<ul>
 <li><code>&amp;Input</code></li>
 <li><code>&amp;mut Camera</code></li>
-<li><code>(&amp;mut CommandEncoder, &amp;TextureView)</code></li>
-<li><code>&amp;mut Vec&lt;T&gt;</code> where <code>T: UpdateEvents + 'static</code></li>
 </ul>
 <p>The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.</p>
 <p>Once you run the update_loop, the window will start to appear. You can also leave the loop empty for an empty screen! The loop also allows to use the <code>move</code> keyword before for passing variables from outside the scope to the inside of the loop.</p>
@@ -557,7 +541,7 @@ engine.update_loop(move |_, _, _, _, _| {})
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>engine.update_loop(move |_, _| {}, vec![]).expect(&quot;Error during update loop&quot;);
+</span>engine.update_loop(move |_, _, _, _, _| {}, vec![]).expect(&quot;Error during update loop&quot;);
 <span class="boring">}
 </span></code></pre></pre>
 <p>The <code>update_loop</code> function takes in a closure, that it'll be run every frame. Try running it and you should see a blank window:</p>

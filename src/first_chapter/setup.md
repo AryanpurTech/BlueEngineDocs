@@ -51,7 +51,7 @@ If you'd like to enable an optional feature, you can specify it in the `features
 
 ```toml
 # For example enable gui support
-blue_engine = { version = "*", features = ["gui"] }
+blue_engine = { version = "*", features = ["model_loading"] }
 ```
 
 That's it! Just open the `main.rs` file in the `src` folder and make the world a better place!

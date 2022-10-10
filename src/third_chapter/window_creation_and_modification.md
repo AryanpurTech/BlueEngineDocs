@@ -11,7 +11,7 @@ let mut engine = Engine::new(WindowDescriptor::default()).expect("Couldn't init 
 This will initalize the engine, and making components ready for use. The engine by itself can't do anything, you'll need to start the update loop for things to happen:
 
 ```rust
-engine.update_loop(move |_, _| {}, vec![]).expect("Error during update loop");
+engine.update_loop(move |_, _, _, _, _| {}, vec![]).expect("Error during update loop");
 ```
 
 The `update_loop` function takes in a closure, that it'll be run every frame. Try running it and you should see a blank window:

@@ -161,7 +161,7 @@
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>engine.update_loop(move |_, _| {}, vec![]).expect(&quot;Error during update loop&quot;);
+</span>engine.update_loop(move |_, _, _, _, _| {}, vec![]).expect(&quot;Error during update loop&quot;);
 <span class="boring">}
 </span></code></pre></pre>
 <p>The <code>update_loop</code> function takes in a closure, that it'll be run every frame. Try running it and you should see a blank window:</p>
