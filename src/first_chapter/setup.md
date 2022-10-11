@@ -44,7 +44,7 @@ blue_engine = "*"
 If you want a specific version, you can specify it too! E.g. the current published version as of this writing:
 
 ```toml
-blue_engine = "0.3.7"
+blue_engine = "0.4.13"
 ```
 
 If you'd like to enable an optional feature, you can specify it in the `features` list:

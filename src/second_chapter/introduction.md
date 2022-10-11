@@ -50,6 +50,7 @@ The update loop is method of `Engine` that has one parameter which is a mutable 
 * `&mut Vec<Object>`
 * `&Input`
 * `&mut Camera`
+* `&mut HashMap<&'static str, Box<Any>>`
   
 The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.
 
@@ -60,7 +61,7 @@ Creating an update loop that's empty is as easy as:
 ```rust
 // the underscores shows that we do not want to use them now.
 // The `move` keyword makes it possible to use variables from outside of the loop scope.
-engine.update_loop(move |_, _, _, _, _| {})
+engine.update_loop(move |_, _, _, _, _, _| {})
         .expect("Error during update loop");
 ```
 

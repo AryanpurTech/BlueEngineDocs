@@ -168,7 +168,7 @@ fn main(){
     .expect(&quot;Couldn't init the Engine&quot;);                     // 2
 
     engine
-        .update_loop(move |_, _, _, _, _| {})                 // 3, 4
+        .update_loop(move |_, _, _, _, _, _| {})                 // 3, 4
         .expect(&quot;Error during update loop&quot;);                 // 5
 }
 </code></pre></pre>
@@ -184,6 +184,7 @@ fn main(){
 <li>objects</li>
 <li>events</li>
 <li>camera</li>
+<li>data_storage</li>
 </ol>
 </li>
 <li>Update loop also returns a <code>Result&lt;()&gt;</code>. The errors that will happen through this means something during the update loop. So make sure to check for errors during the update loop as well, or not if you're a brave soul :)</li>

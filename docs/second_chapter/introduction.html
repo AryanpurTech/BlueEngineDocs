@@ -190,6 +190,7 @@ fn main() {
 <li><code>&amp;mut Vec&lt;Object&gt;</code></li>
 <li><code>&amp;Input</code></li>
 <li><code>&amp;mut Camera</code></li>
+<li><code>&amp;mut HashMap&lt;&amp;'static str, Box&lt;Any&gt;&gt;</code></li>
 </ul>
 <p>The fields that are not mutable are only there to provide information. The mutable fields are the ones where your changes will exist, such as showing things on screen, moving camera, e.t.c.</p>
 <p>Once you run the update_loop, the window will start to appear. You can also leave the loop empty for an empty screen! The loop also allows to use the <code>move</code> keyword before for passing variables from outside the scope to the inside of the loop.</p>
@@ -199,7 +200,7 @@ fn main() {
 </span><span class="boring">fn main() {
 </span>// the underscores shows that we do not want to use them now.
 // The `move` keyword makes it possible to use variables from outside of the loop scope.
-engine.update_loop(move |_, _, _, _, _| {})
+engine.update_loop(move |_, _, _, _, _, _| {})
         .expect(&quot;Error during update loop&quot;);
 <span class="boring">}
 </span></code></pre></pre>

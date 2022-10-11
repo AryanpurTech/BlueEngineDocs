@@ -31,7 +31,7 @@ fn main(){
     .expect("Couldn't init the Engine");                     // 2
 
     engine
-        .update_loop(move |_, _, _, _, _| {})                 // 3, 4
+        .update_loop(move |_, _, _, _, _, _| {})                 // 3, 4
         .expect("Error during update loop");                 // 5
 }
 ```
@@ -46,6 +46,7 @@ fn main(){
    3. objects
    4. events
    5. camera
+   6. data_storage
 5. Update loop also returns a `Result<()>`. The errors that will happen through this means something during the update loop. So make sure to check for errors during the update loop as well, or not if you're a brave soul :)
 
 After you're done, you can run:
