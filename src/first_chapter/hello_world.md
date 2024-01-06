@@ -12,7 +12,7 @@ After that's taken care of, open `cargo.toml` and add the crate under dependenci
 
 ```toml
 [dependencies]
-blue_engine = "*"
+blue_engine = "0.5.1"
 ```
 
 This should now install Blue Engine and all it's dependencies. We should be ready to get started.
@@ -24,15 +24,15 @@ Alright, now that we're done with that, let's get the exciting work started! Fir
 Firstly, open the `main.rs` file under `src` folder, and paste below in it:
 
 ```rust
-use blue_engine::header::{Engine, WindowDescriptor};         // 0
+use blue_engine::header::{Engine, WindowDescriptor}; // 0
 
 fn main(){
-  let mut engine = Engine::new(WindowDescriptor::default())  // 1
-    .expect("Couldn't init the Engine");                     // 2
+  let mut engine = Engine::new(WindowDescriptor::default()) // 1
+    .expect("Couldn't init the Engine"); // 2
 
     engine
-        .update_loop(move |_, _, _, _, _, _| {})                 // 3, 4
-        .expect("Error during update loop");                 // 5
+        .update_loop(move |_, _, _, _, _, _| {}) // 3, 4
+        .expect("Error during update loop"); // 5
 }
 ```
 
@@ -46,8 +46,8 @@ fn main(){
    3. objects
    4. events
    5. camera
-   6. data_storage
-5. Update loop also returns a `Result<()>`. The errors that will happen through this means something during the update loop. So make sure to check for errors during the update loop as well, or not if you're a brave soul :)
+   6. plugins
+5. Update loop also returns a `Result<()>`. The errors that will happen through this means it happened during the update loop. So make sure to check for errors during the update loop as well, or not if you're a brave soul :)
 
 After you're done, you can run:
 

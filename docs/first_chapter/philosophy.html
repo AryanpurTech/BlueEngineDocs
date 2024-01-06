@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -8,10 +8,9 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="The official documentation of the Blue Engine">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -32,15 +31,16 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,27 +56,34 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -86,20 +93,42 @@
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -138,7 +167,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -153,55 +182,52 @@
 <p>The philosophy is always to bring as much ease of use and flexibility as possible. Anything done with the engine, the changes made, the features added, e.t.c. are all made to be as easy-to-use and as flexible as possible for everyone to have a peace of mind when using. Doing graphics shouldn't be hard even at such low level right?</p>
 <p>For most people, use cases differ. And because of that, the level of abstraction should differ too; the engine must be flexible enough to accommodate that. This is how Blue Engine can be as high or low level when using as you need. Just need objects to be displayed? Sure thing, they're just one line away! Want to have custom built structure for your own shape and bring your custom engines upon it with custom shaders, textures, and more? We got you covered too! There's something for everyone!</p>
 <h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
-<p>The source code is structured to have a common place for every part of the engine. I took a bit of idea from structures of C/C++ projects for organizing the source code. And came up with a similar organizational structure.</p>
-<ul>
-<li>
-<p>all the <code>structs</code>, <code>types</code>, <code>enums</code>, e.t.c. are all under <code>header.rs</code> file. This file also specify if a part will be public for other crate use or not as well as global default data, such as default texture, default shader, and more.</p>
-</li>
-<li>
-<p>Methods' code and implementation live under their designated file. The target classes will be taken from the definitions file.</p>
-</li>
-<li>
-<p>Methods' code and other parts like camera, window, render, e.t.c. will each have their own files for custom and clean progress and to not interfere with each-other.</p>
-</li>
-</ul>
+<p>To achieve this goal, the Blue Engine source code is structured in a flexible way. All definitions, such as <code>structs</code>, <code>types</code>, and <code>enums</code>, are defined in a single header file, <code>header.rs</code>. This file also specifies whether each part will be public for external use or not, as well as defining global default settings, such as default textures and shaders.</p>
+<p>The methods' code is organized under their respective files, with the target classes taken from the definitions file. For example, methods related to rendering live under a <code>render.rs</code> file, while camera functionality lives in a separate <code>camera.rs</code> file. This structure allows for clean progress and minimizes interference between different parts of the engine.</p>
 <h2 id="technologies-used"><a class="header" href="#technologies-used">Technologies used</a></h2>
-<p>I try to use standard library as much as possible, but some parts are too much to write, or not possible within the bounds of standard library such as windowing, rendering APIs, e.t.c. For these, I use crates that already provide those. Even if a need for an external crate rises, I try as much as possible to ensure cross-platform portability, ease of use, and keep it as lightweight as possible, and to not be a roadblock for development and use.</p>
-<p>The technologies used as of now, can be viewed on the <code>cargo.toml</code> file in the root directory under <code>dependencies</code> section.</p>
-<h2 id="dependency-justification-as-of-037"><a class="header" href="#dependency-justification-as-of-037">Dependency justification as of 0.3.7</a></h2>
+<p>The Blue Engine uses a combination of standard Rust library functions and external crates to achieve its goals. While we prioritize using the standard library as much as possible, there are some tasks that require more advanced functionality or are not feasible within its bounds. For these cases, we turn to external crates.</p>
+<p>The current list of dependencies for Blue Engine can be found in the <code>cargo.toml</code> file located in the root directory.</p>
+<h2 id="dependency-justification-as-of-051"><a class="header" href="#dependency-justification-as-of-051">Dependency justification as of 0.5.1</a></h2>
 <ul>
 <li>
-<p><code>futures = &quot;0.3.21&quot;</code>: is used for blocking the async functions that is used internally in lower level apis.</p>
+<p><code>futures = &quot;0.3&quot;</code>: This dependency is used to enable blocking within async functions that are utilized in lower-level APIs.</p>
 </li>
 <li>
-<p><code>winit = &quot;0.26.1&quot;</code>: handles the creation and control of windows and contexts.</p>
+<p><code>winit = { version = &quot;0.29.8&quot;, features = [&quot;rwh_05&quot;] }</code>: This crate handles the creation and control of windows and contexts, ensuring a consistent interface across various platforms.</p>
 </li>
 <li>
-<p><code>image = &quot;0.24.2&quot;</code>: used for texture reading and handling of images.</p>
+<p><code>image = &quot;0.24&quot;</code>: The image crate is used for reading and handling textures within the engine.</p>
 </li>
 <li>
-<p><code>bytemuck = { version = &quot;1.10.0&quot;, features = [&quot;derive&quot;] }</code>: small utilities for casting between plain data types. Helps with sending bytes to gpu.</p>
+<p><code>bytemuck = { version = &quot;1.14&quot;, features = [&quot;derive&quot;] }</code>: This dependency provides utility functions for casting between plain data types, which is necessary for sending data to the GPU.</p>
 </li>
 <li>
-<p><code>winit_input_helper = &quot;0.12.0&quot;</code>: helps with gathering input event data, and leaving an easy-to-use list of functions to access them. It's more of a quality-of-life dependency.</p>
+<p><code>winit_input_helper = &quot;0.15&quot;</code>: This crate simplifies the process of gathering input event data and provides an easy-to-use list of functions for accessing them.</p>
 </li>
 <li>
-<p><code>anyhow = &quot;1.0.57&quot;</code>: helps with error handling.</p>
+<p><code>anyhow = &quot;1.0&quot;</code>: This dependency is used for error handling, providing a clear and concise way to handle errors within the engine.</p>
 </li>
 <li>
-<p><code>env_logger = &quot;0.9.0&quot;</code>: Logs internal events, and gives useful error and logs. Very good for debugging!</p>
+<p><code>downcast = &quot;0.11</code>: This dependency helps with downcasting trait objects of plugins into usable components.</p>
 </li>
 <li>
-<p><code>wgpu = { version = &quot;0.13.0&quot; }</code>: a wrapper over graphics api, based on WebGPU standard. Very awesome api for rendering graphics that just makes sense! It also helps with having your graphic run everywhere optimally.</p>
+<p><code>wgpu = { version = &quot;0.18&quot; }</code>: The wgpu crate acts as a wrapper over the graphics API and follows the WebGPU standard. It provides an intuitive and performant way to render graphics across multiple platforms.</p>
 </li>
 <li>
-<p><code>nalgebra-glm = &quot;0.17.0&quot;</code>: math library for all the math that is used in the engine.</p>
+<p><code>nalgebra-glm = &quot;0.18&quot;</code>: This math library is used extensively throughout the engine for handling various mathematical operations.</p>
 </li>
 </ul>
-<hr />
-<p>These are optional dependencies that are enabled with flags:</p>
+<h2 id="optional-dependencies"><a class="header" href="#optional-dependencies">Optional dependencies</a></h2>
 <ul>
-<li><code>gltf = { version = &quot;1.0.0&quot;, optional = true }</code>: used for handling gltf 2.0 and glb files. Enabled with <code>model_loader</code> feature flag.</li>
+<li>
+<p><code>android_logger = { version = &quot;0.13&quot;, optional = true }</code> : This dependency is used for logging on Android.</p>
+</li>
+<li>
+<p><code>log = { version = &quot;0.4&quot;, optional = true }</code>: same use as <code>env_logger</code></p>
+</li>
+<li>
+<p><code>env_logger = { version = &quot;0.10&quot;, optional = true }</code>: This logging library is used internally for event logging, as well as for providing useful debugging information.</p>
+</li>
 </ul>
 
                     </main>
@@ -212,7 +238,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../first_chapter/hello_world.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../first_chapter/hello_world.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -226,7 +252,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../first_chapter/hello_world.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../first_chapter/hello_world.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -236,21 +262,22 @@
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
